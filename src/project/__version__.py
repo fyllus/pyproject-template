@@ -28,7 +28,6 @@ def main():
     config["project"]["version"] = __version__
     config["project"]["description"] = __description__
 
-    # Força a criação da estrutura de tabela estrita inline do tomlkit
     author_table = tk.inline_table()
     author_table["name"] = __author__
     author_table["email"] = __email__
