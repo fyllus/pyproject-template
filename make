@@ -1,9 +1,9 @@
 #!/bin/bash
-FOLDER="project"
+NAME="project"
 MESSAGE="$1"
 CHANGE="$(date '+%Y-%m-%d %H:%M:%S')"
-AUTHOR=$(grep -E '^__author__\s*=\s*' src/$FOLDER/__version__.py | cut -d'"' -f2)
-EMAIL=$(grep -E '^__email__\s*=\s*' src/$FOLDER/__version__.py | cut -d'"' -f2)
+AUTHOR=$(grep -E '^__author__\s*=\s*' src/$NAME/__version__.py | cut -d'"' -f2)
+EMAIL=$(grep -E '^__email__\s*=\s*' src/$NAME/__version__.py | cut -d'"' -f2)
 
 shift
 
@@ -20,7 +20,7 @@ if ! git config user.email >/dev/null 2>&1; then
     git config user.email "$EMAIL"
 fi
 
-python3 src/$FOLDER/__version__.py >> change.log
+python3 src/$NAME/__version__.py >> change.log
 
 echo "[changelog-$CHANGE]" >> change.log
 
@@ -37,7 +37,7 @@ while [ -n "$1" ]; do
             shift
             ;;
         --freeze)
-            VERSION=$(grep -E '^__version__\s*=\s*' src/$FOLDER/__version__.py | cut -d'"' -f2)
+            VERSION=$(grep -E '^__version__\s*=\s*' src/$NAME/__version__.py | cut -d'"' -f2)
             git tag -a "v$VERSION" -m "$MESSAGE"
             printf "\nNEW VERSION: %s -> %s\n" "$VERSION" "$MESSAGE" >> change.log
             shift
@@ -52,3 +52,7 @@ while [ -n "$1" ]; do
             ;;
     esac
 done
+
+if ! python -c "import $NAME": then
+	pip install -e .
+fi
