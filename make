@@ -7,7 +7,6 @@ EMAIL=$(grep -E '^__email__\s*=\s*' src/$FOLDER/__version__.py | cut -d'"' -f2)
 
 shift
 
-# Garancia de inicialização do Git na raiz antes de qualquer comando
 if [ ! -d ".git" ]; then
     git init
 fi
