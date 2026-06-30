@@ -24,9 +24,15 @@ def main():
     config["project"]["version"] = __version__
     config["project"]["description"] = __description__
 
-    config["project"]["authors"] = [
-            {"name": __author__, "email": __email__}
-        ]
+    # Cria a tabela estrita do tomlkit para evitar erros de tipo primitivo do Python
+    author_table = tk.inline_table()
+    author_table["name"] = __author__
+    author_table["email"] = __email__
+    
+    authors_array = tk.array()
+    authors_array.append(author_table)
+    
+    config["project"]["authors"] = authors_array
 
     pyproject_path.write_text(tk.dumps(config), encoding="utf-8")
 
