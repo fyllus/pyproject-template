@@ -13,7 +13,11 @@ def main():
     print("Project Config: ", pyproject_path)    
     
     if pyproject_path.exists():
-        config = tk.parse(pyproject_path.read_text(encoding="utf-8"))
+        try:
+            config = tk.parse(pyproject_path.read_text(encoding="utf-8"))
+        except Exception:
+            # Se o arquivo estiver corrompido, reseta a estrutura
+            config = tk.document()
     else:
         config = tk.document()
 
@@ -24,7 +28,7 @@ def main():
     config["project"]["version"] = __version__
     config["project"]["description"] = __description__
 
-    # Cria a tabela estrita do tomlkit para evitar erros de tipo primitivo do Python
+    # Força a criação da estrutura de tabela estrita inline do tomlkit
     author_table = tk.inline_table()
     author_table["name"] = __author__
     author_table["email"] = __email__
