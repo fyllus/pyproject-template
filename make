@@ -53,6 +53,6 @@ while [ -n "$1" ]; do
     esac
 done
 
-if ! python -c "import $NAME": then
+if ! python -c "import $NAME"; then
 	pip install -e .
 fi
