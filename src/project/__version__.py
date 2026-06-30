@@ -24,14 +24,9 @@ def main():
     config["project"]["version"] = __version__
     config["project"]["description"] = __description__
 
-    # Estrutura PEP 621 para autores
-    author_info = tk.table()
-    author_info["name"] = __author__
-    author_info["email"] = __email__
-    
-    authors_list = tk.array()
-    authors_list.append(author_info)
-    config["project"]["authors"] = authors_list
+    config["project"]["authors"] = [
+            {"name": __author__, "email": __email__}
+        ]
 
     pyproject_path.write_text(tk.dumps(config), encoding="utf-8")
 
